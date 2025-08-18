@@ -58,18 +58,15 @@ class BashShell {
 
         this.commands = {
             'help': this.showHelp.bind(this),
-            // 'll': this.listFiles.bind(this),
-            // 'la': this.listFiles.bind(this),
             'pwd': this.printWorkingDirectory.bind(this),
             'clear': this.clearScreen.bind(this),
-            // 'cat': this.catFile.bind(this),
             'echo': this.echo.bind(this),
             'date': this.showDate.bind(this),
             'whoami': this.whoami.bind(this),
             'uname': this.uname.bind(this),
             'history': this.showHistory.bind(this),
             'gui': this.openGui.bind(this),
-            'exit': this.exit.bind(this)
+            'exit': this.openGui.bind(this)
         };
 
         this.init();
@@ -198,6 +195,10 @@ history  - Show command history\n
 gui      - Open graphical interface (Web Profile)
 exit     - Exit shell`;
         this.addOutput(helpText, 'help-text');
+
+        // setTimeout(() => {
+        //     this.openGui();    
+        // }, 7000);
     }
 
     printWorkingDirectory() {
