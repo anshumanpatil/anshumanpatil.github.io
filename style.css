@@ -45,14 +45,14 @@ body {
     caret-color: #ffffff;
 }
 
-.cursor {
+/* .cursor {
     display: inline-block;
     width: 8px;
     height: 16px;
     background-color: #ffffff;
     animation: blink 1s infinite;
     margin-left: 2px;
-}
+} */
 
 @keyframes blink {
     0%, 50% { opacity: 1; }
