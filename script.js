@@ -69,7 +69,7 @@ class BashShell {
             'git': console.log("https://github.com/anshumanpatil"),
             'linkedin': console.log("https://www.linkedin.com/in/anshumanpradippatil1506/"),
             'stack': console.log("https://stackoverflow.com/users/2223260/anshuversatile"),
-            'hf': console.log("https://huggingface.co/anshumanpatil"),
+            'ai': console.log("https://huggingface.co/anshumanpatil"),
             'history': this.showHistory.bind(this),
             'gui': this.openGui.bind(this),
             'exit': this.openGui.bind(this)
@@ -154,7 +154,7 @@ class BashShell {
             case "stackoverflow":
                 return navigateToWebsite("https://stackoverflow.com/users/2223260/anshuversatile")
                 break;
-            case "hf":
+            case "ai":
                 return navigateToWebsite("https://huggingface.co/anshumanpatil/")
                 break;
         
@@ -199,7 +199,7 @@ whoami   - Show current username\n
 git      - Show github profile
 linkedin - Show Linkedin profile
 stack    - Show StackOverflow profile
-hf       - Show Hugging Face profile
+ai       - Show AI related profile
 history  - Show command history\n
 gui      - Open graphical interface (Web Profile)
 exit     - Exit shell`;
