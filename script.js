@@ -1,3 +1,6 @@
+const navigateToWebsite = (path) => {
+    window.location.href = path;
+}
 class BashShell {
     constructor() {
         this.currentPath = '/home/user';
@@ -55,15 +58,18 @@ class BashShell {
                 }
             }
         };
-
+        
         this.commands = {
             'help': this.showHelp.bind(this),
-            'pwd': this.printWorkingDirectory.bind(this),
-            'clear': this.clearScreen.bind(this),
+            'web': this.openGui.bind(this),
+            'cv': this.downloadCV.bind(this),
             'echo': this.echo.bind(this),
             'date': this.showDate.bind(this),
             'whoami': this.whoami.bind(this),
-            'uname': this.uname.bind(this),
+            'git': console.log("https://github.com/anshumanpatil"),
+            'linkedin': console.log("https://www.linkedin.com/in/anshumanpradippatil1506/"),
+            'stack': console.log("https://stackoverflow.com/users/2223260/anshuversatile"),
+            'hf': console.log("https://huggingface.co/anshumanpatil"),
             'history': this.showHistory.bind(this),
             'gui': this.openGui.bind(this),
             'exit': this.openGui.bind(this)
@@ -108,26 +114,8 @@ class BashShell {
         } else if (e.key === 'ArrowDown') {
             e.preventDefault();
             this.navigateHistory(1);
-        } else if (e.key === 'Tab') {
-            e.preventDefault();
-            this.tabComplete();
-        }
-    }
-
-    tabComplete() {
-        const input = this.inputEl.value;
-        const parts = input.split(' ');
-        const lastPart = parts[parts.length - 1];
+        } 
         
-        if (parts.length === 1) {
-            // Command completion
-            const matches = Object.keys(this.commands).filter(cmd => cmd.startsWith(lastPart));
-            if (matches.length === 1) {
-                this.inputEl.value = matches[0] + ' ';
-            } else if (matches.length > 1) {
-                this.addOutput('\n' + matches.join('  '));
-            }
-        }
     }
 
     navigateHistory(direction) {
@@ -154,6 +142,24 @@ class BashShell {
         if (commandLine) {
             this.commandHistory.unshift(commandLine);
             this.historyIndex = -1;
+        }
+
+        switch (commandLine) {
+            case "git":
+                return navigateToWebsite("https://github.com/anshumanpatil")
+                break;
+            case "linkedin":
+                return navigateToWebsite("https://www.linkedin.com/in/anshumanpradippatil1506/")
+                break;
+            case "stackoverflow":
+                return navigateToWebsite("https://stackoverflow.com/users/2223260/anshuversatile")
+                break;
+            case "hf":
+                return navigateToWebsite("https://huggingface.co/anshumanpatil/")
+                break;
+        
+            default:
+                break;
         }
 
         this.addOutput(`${this.promptEl.textContent} ${commandLine}`);
@@ -185,12 +191,15 @@ class BashShell {
     showHelp() {
         const helpText = `Available commands:\n
 help     - Show this help message
-pwd      - Print working directory
-clear    - Clear the screen
+web      - Go to Web Profile
+cv       - Download CV (Resume)
 echo     - Display text
 date     - Show current date and time
-whoami   - Show current username
-uname    - Show system information
+whoami   - Show current username\n
+git      - Show github profile
+linkedin - Show Linkedin profile
+stack    - Show StackOverflow profile
+hf       - Show Hugging Face profile
 history  - Show command history\n
 gui      - Open graphical interface (Web Profile)
 exit     - Exit shell`;
@@ -201,8 +210,41 @@ exit     - Exit shell`;
         // }, 7000);
     }
 
-    printWorkingDirectory() {
-        this.addOutput(this.currentPath);
+    downloadCV() {
+        // download file - Anshuman_CV_Profile_cleaned.doc
+        this.addOutput('Downloading CV (Resume)...', 'system-info');
+
+        const url = 'resumes/Anshuman_CV_Profile_cleaned.doc';
+
+        // Use fetch to get the file as a blob and force a download. This works
+        // when the site is served over HTTP and avoids popup blockers.
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.blob();
+            })
+            .then(blob => {
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = 'Anshuman_CV_Profile_cleaned.doc';
+                // Some browsers require the link to be in the DOM
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                // Revoke the object URL after a short delay to ensure download starts
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+                this.addOutput('Download started.', 'success');
+            })
+            .catch(err => {
+                // Fallback: try opening the file in a new tab/window
+                this.addOutput(`Download failed: ${err.message}. Opening file in a new tab...`, 'error');
+                try {
+                    window.open(url, '_blank');
+                } catch (e) {
+                    this.addOutput('Unable to open file automatically. Please download manually: ' + url, 'error');
+                }
+            });
     }
 
     clearScreen() {
@@ -243,7 +285,11 @@ exit     - Exit shell`;
         });
     }
 
-    openGui() {
+    
+
+    openGui({this: any, profile}) {
+        console.log("from", profile);
+        
         this.addOutput('Launching graphical interface...', 'system-info');
         this.addOutput('Opening Claude.ai in new window...', 'success');
         
