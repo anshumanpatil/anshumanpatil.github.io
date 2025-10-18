@@ -1,8 +1,22 @@
 const navigateToWebsite = (path) => {
     window.location.href = path;
 }
+function showSpinner() {
+    const spinner = document.getElementById('loading-spinner');
+    console.log(spinner);
+    
+    spinner.classList.remove('spinner-hidden');
+}
+
+// Function to hide the spinner
+function hideSpinner() {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.classList.add('spinner-hidden');
+}
+
 class BashShell {
     constructor() {
+
         this.currentPath = '/home/user';
         this.defaultHelp = 0;
         this.homeDir = '/home/user';
@@ -133,6 +147,7 @@ class BashShell {
     }
 
     executeCommand(commandLine) {
+        commandLine = commandLine.toLowerCase();
         if (!commandLine || commandLine.trim() === '') {
             return; // Ignore empty commands
             
@@ -146,15 +161,19 @@ class BashShell {
 
         switch (commandLine) {
             case "git":
+                showSpinner();
                 return navigateToWebsite("https://github.com/anshumanpatil")
                 break;
             case "linkedin":
+                showSpinner();
                 return navigateToWebsite("https://www.linkedin.com/in/anshumanpradippatil1506/")
                 break;
-            case "stackoverflow":
+            case "stack":
+                showSpinner();
                 return navigateToWebsite("https://stackoverflow.com/users/2223260/anshuversatile")
                 break;
             case "ai":
+                showSpinner();
                 return navigateToWebsite("https://huggingface.co/anshumanpatil/")
                 break;
         
@@ -199,8 +218,8 @@ whoami   - Show current username\n
 git      - Show github profile
 linkedin - Show Linkedin profile
 stack    - Show StackOverflow profile
-ai       - Show AI related profile
-history  - Show command history\n
+ai       - Show AI related profile\n
+history  - Show command history
 gui      - Open graphical interface (Web Profile)
 exit     - Exit shell`;
         this.addOutput(helpText, 'help-text');
