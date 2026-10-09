@@ -310,17 +310,17 @@ exit     - Exit shell`;
         console.log("from", profile);
         
         this.addOutput('Launching graphical interface...', 'system-info');
-        this.addOutput('Opening Claude.ai in new window...', 'success');
+        // this.addOutput('Opening Claude.ai in new window...', 'success');
         
         // Create a clickable link
         const linkDiv = document.createElement('div');
-        linkDiv.innerHTML = `<span class="link">→ https://claude.ai</span>`;
+        linkDiv.innerHTML = `<span class="link">→ /gui.html</span>`;
         linkDiv.className = 'link';
         linkDiv.style.cursor = 'pointer';
         linkDiv.style.textDecoration = 'underline';
         
         linkDiv.addEventListener('click', () => {
-            window.location.href = 'about.html';
+            window.location.href = 'gui.html';
         });
         
         this.outputEl.appendChild(linkDiv);
@@ -328,7 +328,7 @@ exit     - Exit shell`;
         
         // Also automatically open in new tab
         setTimeout(() => {
-            window.location.href = 'about.html';
+            window.location.href = 'gui.html';
         }, 500);
     }
 

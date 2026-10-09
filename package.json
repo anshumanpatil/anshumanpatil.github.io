@@ -1,0 +1,24 @@
+{
+  "name": "anshumanpatil.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "serve -l 8056",
+    "dev": "serve -l 8056",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anshumanpatil/anshumanpatil.github.io.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anshumanpatil/anshumanpatil.github.io/issues"
+  },
+  "homepage": "https://github.com/anshumanpatil/anshumanpatil.github.io#readme",
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}
